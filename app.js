@@ -1,13 +1,12 @@
 const e=id=>document.getElementById(id);
 
-const traducir=async (palabra)=>{
+/* const traducir=async (palabra)=>{
     console.log(palabra.toString())
     const q={
         q:palabra,
         source:"en",
         target:"es"
     }
-    const tras=` While vacationing with his adopted daughter, Private Detective Susuki becomes trapped in a secluded ski resort with a few other vacationers after a storm closes the place down. All is well until one of the guests is found brutally murdered. Being the good investigator he is, Susuki gets to work to find the killer. While digging for the killer, Susuki uncovers a lot of dirt on the other guests and even finds out a thing or two about his own past. But, as Susuki struggles to find the killer, the other guests start to point the finger at him.`
     const options = {
         method: 'POST',
         headers: {
@@ -24,8 +23,30 @@ const traducir=async (palabra)=>{
     console.log(data)
     return data.data.translations.translatedText;
     
-}
+} */
+const traducir=async(texto)=>{
 
+    const encodedParams = new URLSearchParams();
+    encodedParams.append("source_language", "en");
+    encodedParams.append("target_language", "es");
+    encodedParams.append("text", texto);
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'X-RapidAPI-Key': 'fdec87dd09mshfed771e947624f8p17def5jsn3ebb6bd349b9',
+        'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
+      },
+      body: encodedParams
+    };
+    
+    const res=await fetch('https://text-translator2.p.rapidapi.com/translate', options)
+    const data=await res.json();
+    console.log(data)
+    return data.data.translatedText
+  
+  }
 
 
 const getAnime = async (id) => {
